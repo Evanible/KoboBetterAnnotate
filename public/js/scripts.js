@@ -1,5 +1,5 @@
 function changeLanguage(language) {
-    fetch(`/locales/${language}.json`)
+    fetch(`public/locales/${language}.json`)
         .then(response => response.json())
         .then(data => {
             const titleElement = document.getElementById('title');
