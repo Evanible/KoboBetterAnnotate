@@ -1,0 +1,12 @@
+.beautified h1,
+.beautified blockquote,
+.beautified p {
+  font-family: "Georgia", "Times New Roman", "Noto Serif SC", "serif", serif;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+.beautified h1 {
+    font-size: 38px;
+}

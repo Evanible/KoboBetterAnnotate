@@ -1,0 +1,17 @@
+{
+    "title": "Beautify your Kobo notes",
+    "description": "Supports only the import of annotation files (.txt files, no larger than 1MB) exported from Kobo e-readers.",
+    "upload_button": "Next",
+    "choose_file": "Choose a file...",
+    "serif_font": "Serif font",
+    "sans_serif_font": "Sans-serif font",
+    "save_as_pdf": "Save as PDF",
+    "generate_markdown": "Generate Markdown",
+    "generate_screenshot": "Generate Screenshot",
+    "instructions": {
+        "p1": "This is a website created by fans of Kobo e-readers. The Kobo reader boasts an e-ink display that rivals or even surpasses the Kindle, making reading more immersive and enjoyable. Unfortunately, however, Kobo does not have as excellent a note-exporting feature as Kindle - yes, it can export your highlights and notes but only into an unformatted txt file. It's hard to believe this is a tech product from 2024. txt files are not just rudimentary; they also almost guarantee poor readability.",
+        "p2": "That's why I built this site — to help friends like me who want their reading notes to be beautiful and easy to read. Just upload your reading notes with one click and beautify them, then you can confidently share them with your friends for their enjoyment!",
+        "p3": "In the future, I might add more attractive templates, or maybe not—who knows. Oh right, I won't save any of your data (that would require costs too, you know!)"
+    },
+    "footer": "Created by ChatGPT4 and Evan. <a href='https://twitter.com/aries4zx/' target='_blank'>find me on twitter</a>"
+}

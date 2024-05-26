@@ -1,0 +1,17 @@
+{
+    "title": "美化你的 Kobo 笔记",
+    "description": "仅支持由 Kobo 电子阅读器导出的注释文件（.txt 格式，单个文件不超过 1MB）。",
+    "upload_button": "下一步",
+    "choose_file": "选择一个 kobo 注释文件...",
+    "serif_font": "衬线字体",
+    "sans_serif_font": "非衬线字体",
+    "save_as_pdf": "另存为 PDF",
+    "generate_markdown": "另存为 Markdown",
+    "generate_screenshot": "另存为截图",
+    "instructions": {
+        "p1": "这是一个由 Kobo 粉丝创建的网站。Kobo 阅读器拥有可以媲美甚至超越 Kindle 的电子墨水显示屏，使阅读更加沉浸和愉快。但不幸的是，Kobo 的笔记导出功能并不如 Kindle 出色 - 是的，它可以导出你的高亮和笔记，但只能导出为无格式的 txt 文件。很难相信这是 2024 年的科技产品。txt 文件不仅格式简陋，而且可阅读性很差。",
+        "p2": "这就是我创建这个网站的原因 —— 让你们的阅读笔记变得美观易读。只需一键上传你的阅读笔记并美化它们，然后你就可以愉快地与你的朋友分享们分享了！",
+        "p3": "未来我可能会加入更多好看的模板，也许不会，谁知道呢。对了，我不会保存你的任何数据（那也是需要成本的好么！）"
+    },
+    "footer": "由 ChatGPT4 和 Evan 共同创建。<a href='https://twitter.com/aries4zx' target='_blank'>在推上找我玩</a>"
+}

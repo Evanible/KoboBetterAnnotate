@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kobo Note Beautifier</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js" defer></script>
+</head>
+<body>
+    <div class="header-container">
+        <header>
+            <a href="/" class="site-name">BKN</a>
+            <select class="language-select" id="language-select">
+                <option value="en">English</option>
+                <option value="ja">日本語</option>
+                <option value="zh">中文</option>
+            </select>
+        </header>
+    </div>
+
+    <main class="container">
+        <h1 id="title"></h1>
+        <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+            <div class="file-upload-wrapper">
+                <input type="file" name="notes" accept=".txt" class="file-upload" id="fileUpload">
+                <span class="file-upload-text">Choose a file...</span>
+            </div>
+            <p class="description-paragraph" id="description"></p>
+            
+            <div class="font-style-selector">
+                <label>
+                    <input type="radio" name="fontStyle" value="serif" id="fontStyleSerif">
+                    <span id="fontStyleSerifLabel" style="font-family: 'Noto Serif SC', serif;">Serif font</span>
+                </label>
+                <label>
+                    <input type="radio" name="fontStyle" value="sans-serif" id="fontStyleSansSerif">
+                    <span id="fontStyleSansSerifLabel" style="font-family: 'Noto Sans SC', sans-serif;">Sans-serif font</span>
+                </label>
+            </div>
+            
+            <input type="hidden" name="language" id="selected-language">
+            <button type="submit" class="btn" id="upload-button">Next</button>
+        </form>
+        <div class="instructions-paragraph">
+            <p id="instruction1"></p>
+            <p id="instruction2"></p>
+            <p id="instruction3"></p>
+        </div>
+    </main>
+
+    <div class="footer-container">
+        <footer>
+            <div class="footer-content">
+                <p id="footer"></p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
