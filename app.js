@@ -81,7 +81,7 @@ function sanitizeFilename(title) {
 app.use(express.urlencoded({ extended: true }));
 
 // 设置静态文件夹路径
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 更新首页路径
 app.get('/', (req, res) => {
