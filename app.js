@@ -100,7 +100,9 @@ app.get('/download-pdf', async (req, res) => {
         return res.status(404).send('No content available to generate PDF.');
     }
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
 
     // 设置页面内容为最近上传并处理的 HTML 内容
@@ -131,7 +133,9 @@ app.get('/download-markdown', (req, res) => {
 
 // 生成网页截图
 app.get('/download-screenshot', async (req, res) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
 
     let cleanContent = prepareContentForDownload(req.session.finalHtmlContent);
