@@ -22,7 +22,7 @@ app.use(session({
     cookie: { maxAge: 86400000 }  // 设置 cookie 过期时间
 }));
 
-// 使用 Helmet 来增加一些安全的 HTTP 头，并配置 CSP 允许内联事件处理器
+// 使用 Helmet 来增加一些安全的 HTTP 头，并配置 CSP 允许内联事件处理器和字体加载
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
@@ -30,8 +30,8 @@ app.use(helmet({
             "script-src": ["'self'", "'unsafe-inline'"],
             "style-src": ["'self'", "'unsafe-inline'"],
             "img-src": ["'self'", "data:"],
+            "font-src": ["'self'", "https:", "data:"],
             "connect-src": ["'self'"],
-            "font-src": ["'self'", "https:"],
             "object-src": ["'none'"],
             "frame-ancestors": ["'none'"]
         }
@@ -85,7 +85,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 更新首页路径
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/locales/:lang', (req, res) => {
