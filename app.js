@@ -12,7 +12,7 @@ const path = require('path');
 
 // 创建 Express 实例
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // 使用环境变量 PORT
 
 // 配置 express-session
 app.use(session({
@@ -82,11 +82,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // 设置静态文件夹路径
 app.use(express.static('public'));
-
-// 路由定义
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
 
 // 更新首页路径
 app.get('/', (req, res) => {
@@ -246,7 +241,7 @@ app.post('/upload', upload.single('notes'), (req, res) => {
                 <title>${title}</title>
                 <style>${mainStyleContent}</style>
                 <style>${templateStyleContent}</style>
-                <script src="/js/scripts.js" defer></script>
+                <script src="js/scripts.js" defer></script>
             </head>
             <body data-language="${selectedLanguage}">
                 <div class="header-container">
@@ -282,7 +277,7 @@ app.post('/upload', upload.single('notes'), (req, res) => {
 
 // 处理模板选择
 
-// 开启服务器
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+// 开启服务器，监听 0.0.0.0
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running at http://0.0.0.0:${port}`);
 });

@@ -1,0 +1,8 @@
+/.git
+/node_modules
+/uploads
+/sample
+.dockerignore
+.env
+Dockerfile
+fly.toml
