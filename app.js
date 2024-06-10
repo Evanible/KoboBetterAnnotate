@@ -77,6 +77,32 @@ function sanitizeFilename(title) {
     return encodeURIComponent(sanitizedTitle);
 }
 
+function embedFonts(htmlContent) {
+    const notoSerifSCPath = path.join(__dirname, 'public', 'fonts', 'NotoSerifSC-Regular.ttf');
+    const notoSansSCPath = path.join(__dirname, 'public', 'fonts', 'NotoSansSC-Regular.ttf');
+
+    const notoSerifSCFont = fs.readFileSync(notoSerifSCPath).toString('base64');
+    const notoSansSCFont = fs.readFileSync(notoSansSCPath).toString('base64');
+
+    const fontFace = `
+    @font-face {
+        font-family: 'Noto Serif SC';
+        src: url(data:font/truetype;charset=utf-8;base64,${notoSerifSCFont}) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Noto Sans SC';
+        src: url(data:font/truetype;charset=utf-8;base64,${notoSansSCFont}) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    `;
+
+    return htmlContent.replace('</style>', `${fontFace}</style>`);
+}
+
+
 // 解析 application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
@@ -109,6 +135,7 @@ app.get('/download-pdf', async (req, res) => {
     
     let cleanContent = prepareContentForDownload(req.session.finalHtmlContent);
     cleanContent = cleanContent.replace(/<div class="header-container">.*?<\/div>/s, ''); // 移除顶部信息
+    cleanContent = embedFonts(cleanContent);
 
     await page.setContent(cleanContent, {waitUntil: 'networkidle0'}); // 确保页面静态资源加载完成
     const pdf = await page.pdf({ format: 'A4' }); // 生成PDF
@@ -123,7 +150,10 @@ app.get('/download-pdf', async (req, res) => {
 
 // 生成 Markdown
 app.get('/download-markdown', (req, res) => {
-    const cleanContent = prepareContentForDownload(req.session.finalHtmlContent); // 清除生成文件里的下载按钮
+    let cleanContent = prepareContentForDownload(req.session.finalHtmlContent); // 清除生成文件里的下载按钮
+    cleanContent = cleanContent.replace(/<style[\s\S]*?<\/style>/g, ''); // 移除所有样式
+    cleanContent = cleanContent.replace(/<div class="header-container">.*?<\/div>/s, ''); // 移除顶部信息
+    
     const markdown = turndownService.turndown(cleanContent);
     const filenameMd = `${sanitizeFilename(req.session.title)}.md`;
     res.setHeader('Content-Disposition', `attachment; filename="${sanitizeFilename(req.session.title)}.md"`);
@@ -140,6 +170,7 @@ app.get('/download-screenshot', async (req, res) => {
 
     let cleanContent = prepareContentForDownload(req.session.finalHtmlContent);
     cleanContent = cleanContent.replace(/<div class="header-container">.*?<\/div>/s, ''); // 移除顶部信息
+    cleanContent = embedFonts(cleanContent);
     
     await page.setViewport({ width: 1280, height: 960, deviceScaleFactor: 2 }); // 设置截图质量
     await page.setContent(cleanContent, {waitUntil: 'networkidle0'});
