@@ -85,7 +85,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 更新首页路径
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/locales/:lang', (req, res) => {
