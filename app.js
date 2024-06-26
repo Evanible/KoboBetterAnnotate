@@ -22,6 +22,9 @@ app.use(session({
     cookie: { maxAge: 86400000 }  // 设置 cookie 过期时间
 }));
 
+// 设置信任代理
+app.set('trust proxy', true);
+
 // 使用 Helmet 来增加一些安全的 HTTP 头，并配置 CSP 允许内联事件处理器和字体加载
 app.use(helmet({
     contentSecurityPolicy: {
@@ -77,7 +80,7 @@ function sanitizeFilename(title) {
     return encodeURIComponent(sanitizedTitle);
 }
 
-function embedFonts(htmlContent) {
+/* function embedFonts(htmlContent) {
     const notoSerifSCPath = path.join(__dirname, 'public', 'fonts', 'NotoSerifSC-Regular.ttf');
     const notoSansSCPath = path.join(__dirname, 'public', 'fonts', 'NotoSansSC-Regular.ttf');
 
@@ -100,7 +103,7 @@ function embedFonts(htmlContent) {
     `;
 
     return htmlContent.replace('</style>', `${fontFace}</style>`);
-}
+}*/ // 因字体文件太大，转化内嵌文字时占用内存过多，暂且不处理了。
 
 
 // 解析 application/x-www-form-urlencoded
@@ -130,15 +133,21 @@ app.get('/download-pdf', async (req, res) => {
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
-        ]
+            '--disable-dev-shm-usage', // 使用/dev/shm共享内存
+            '--disable-gpu', // 禁用GPU加速
+            '--disable-software-rasterizer' // 禁用软件栅格化
+        ],
+        headless: true,
+        defaultViewport: null,
+        timeout: 60000 // 增加超时时间
     });
+
     const page = await browser.newPage();
 
     // 设置页面内容为最近上传并处理的 HTML 内容
     
     let cleanContent = prepareContentForDownload(req.session.finalHtmlContent);
     cleanContent = cleanContent.replace(/<div class="header-container">.*?<\/div>/s, ''); // 移除顶部信息
-    cleanContent = embedFonts(cleanContent);
 
     await page.setContent(cleanContent, {waitUntil: 'networkidle0'}); // 确保页面静态资源加载完成
     await page.emulateMediaType('screen'); // 确保使用屏幕媒体类型
