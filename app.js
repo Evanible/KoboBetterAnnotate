@@ -130,10 +130,6 @@ app.get('/download-pdf', async (req, res) => {
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
-            '--lang=zh-CN',
-            '--font-render-hinting=none',
-            '--disable-gpu',
-            '--disable-software-rasterizer'
         ]
     });
     const page = await browser.newPage();
@@ -142,6 +138,7 @@ app.get('/download-pdf', async (req, res) => {
     
     let cleanContent = prepareContentForDownload(req.session.finalHtmlContent);
     cleanContent = cleanContent.replace(/<div class="header-container">.*?<\/div>/s, ''); // 移除顶部信息
+    cleanContent = embedFonts(cleanContent);
 
     await page.setContent(cleanContent, {waitUntil: 'networkidle0'}); // 确保页面静态资源加载完成
     await page.emulateMediaType('screen'); // 确保使用屏幕媒体类型
